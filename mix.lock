@@ -1,0 +1,2 @@
+%{"calendar": {:hex, :calendar, "0.6.7"},
+  "tzdata": {:hex, :tzdata, "0.1.5"}}
