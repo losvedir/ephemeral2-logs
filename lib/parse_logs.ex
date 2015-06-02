@@ -8,39 +8,29 @@ defmodule ParseLogs do
       {"sent-200", ParseLogs.Sent200},
     ]
 
-    for {path, module} <- files, do: process(path, module)
-    wait(0)
+    pids = Enum.map(files, fn({path, module}) ->
+      Task.async(fn ->
+        process(path, module)
+      end)
+    end)
+
+    pids |> Enum.each(fn(pid) -> Task.await(pid, 30_000) end)
+    {:ok, self}
   end
 
   defp process(log_name, mod) do
-    parent = self
     in_file = File.open! "log_data/#{log_name}.log", [:read, :utf8]
     out_file = File.open! "log_data/#{log_name}.csv", [:write, :utf8]
 
-    spawn fn ->
-      IO.puts out_file, mod.header
+    IO.puts out_file, mod.header
 
-      for line <- IO.stream(in_file, :line) do
-        parsed_line = mod.parse_line(line)
-        if parsed_line, do: IO.puts(out_file, parsed_line)
-      end
-
-      File.close in_file
-      File.close out_file
-      send parent, :done
+    for line <- IO.stream(in_file, :line) do
+      parsed_line = mod.parse_line(line)
+      if parsed_line, do: IO.puts(out_file, parsed_line)
     end
-  end
 
-  defp wait(n) do
-    if n == 2 do
-      {:ok, self}
-    else
-      receive do
-        :done ->
-          IO.puts "Received a :done"
-          wait(n+1)
-      end
-    end
+    File.close in_file
+    File.close out_file
   end
 end
 
