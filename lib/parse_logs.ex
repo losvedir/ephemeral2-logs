@@ -3,9 +3,11 @@ defmodule ParseLogs do
 
   def start(_type, _args) do
     files = [
-      {"base64-video", ParseLogs.Base64Video},
-      {"base64-image", ParseLogs.Base64Image},
-      {"sent-200", ParseLogs.Sent200},
+      # commenting out for now. how to run tests without invoking the file processing?
+      # i think start shouldn't kick off the processing, maybe.
+      # {"base64-video", ParseLogs.Base64Video},
+      # {"base64-image", ParseLogs.Base64Image},
+      # {"sent-200", ParseLogs.Sent200},
     ]
 
     pids = Enum.map(files, fn({path, module}) ->
