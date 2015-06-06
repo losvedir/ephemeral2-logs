@@ -12,10 +12,10 @@ defmodule CpuTest do
     l4 = "214 <45>1 2015-05-12T12:49:12.461593+00:00 heroku web.1 - - source=web.1 dyno=heroku.34921046.a839b446-b160-4b1d-a7d8-f30d6412d95b sample#load_avg_1m=0.00 sample#load_avg_5m=0.00"
     l5 = "239 <45>1 2015-05-12T13:15:14.328322+00:00 heroku web.1 - - source=web.1 dyno=heroku.34921046.a839b446-b160-4b1d-a7d8-f30d6412d95b sample#load_avg_1m=0.54 sample#load_avg_5m=1.35 sample#load_avg_15m=1.09"
 
-    assert ParseLogs.Base64Video.parse_line(l1) == "1431452801,0.00"
-    assert ParseLogs.Base64Video.parse_line(l2) == "1431452801,0.00"
-    assert ParseLogs.Base64Video.parse_line(l3) == "1431452801,0.00"
-    assert ParseLogs.Base64Video.parse_line(l4) == "1431452801,0.00"
-    assert ParseLogs.Base64Video.parse_line(l5) == "1431452801,0.54"
+    assert ParseLogs.Cpu.parse_line(l1) == "1431395170,0.00"
+    assert ParseLogs.Cpu.parse_line(l2) == "1431395556,0.00"
+    assert ParseLogs.Cpu.parse_line(l3) == "1431396187,0.00"
+    assert ParseLogs.Cpu.parse_line(l4) == "1431434952,0.00"
+    assert ParseLogs.Cpu.parse_line(l5) == "1431436514,0.54"
   end
 end

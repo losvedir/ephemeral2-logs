@@ -10,8 +10,8 @@ defmodule TotalSubscribersTest do
     l2 = "135 <190>1 2015-05-12T13:38:53.928592+00:00 app web.1 - - 13:38:53.928 [info] total_subscribers=300"
     l3 = "135 <190>1 2015-05-12T15:07:36.604235+00:00 app web.1 - - 15:07:36.591 [info] total_subscribers=546"
 
-    assert ParseLogs.Restarts.parse_line(l1) == "123456,0"
-    assert ParseLogs.Restarts.parse_line(l2) == "123456,300"
-    assert ParseLogs.Restarts.parse_line(l3) == "123456,546"
+    assert ParseLogs.TotalSubscribers.parse_line(l1) == "1431422191,0"
+    assert ParseLogs.TotalSubscribers.parse_line(l2) == "1431437933,300"
+    assert ParseLogs.TotalSubscribers.parse_line(l3) == "1431443256,546"
   end
 end
