@@ -10440,7 +10440,7 @@ d 239 <45>1 2015-05-13T00:01:20.005721+00:00 heroku web.1 - - source=web.1 dyno=
 239 <45>1 2015-05-14T23:59:34.702992+00:00 heroku web.1 - - source=web.1 dyno=heroku.34921046.5449fe38-1025-44f8-b3cd-8b97ff5258b6 sample#load_avg_1m=0.40 sample#load_avg_5m=0.18 sample#load_avg_15m=0.11
 239 <45>1 2015-05-14T23:59:55.583391+00:00 heroku web.1 - - source=web.1 dyno=heroku.34921046.5449fe38-1025-44f8-b3cd-8b97ff5258b6 sample#load_avg_1m=0.29 sample#load_avg_5m=0.16 sample#load_avg_15m=0.11
 239 <45>1 2015-05-15T00:00:16.726910+00:00 heroku web.1 - - source=web.1 dyno=heroku.34921046.5449fe38-1025-44f8-b3cd-8b97ff5258b6 sample#load_avg_1m=0.20 sample#load_avg_5m=0.15 sample#load_avg_15m=0.10
-d 239 <45>1 2015-05-15T00:00:37.774042+00:00 heroku web.1 - - source=web.1 dyno=heroku.34921046.5449fe38-1025-44f8-b3cd-8b97ff5258b6 sample#load_avg_1m=0.14 sample#load_avg_5m=0.14 sample#load_avg_15m=0.10
+239 <45>1 2015-05-15T00:00:37.774042+00:00 heroku web.1 - - source=web.1 dyno=heroku.34921046.5449fe38-1025-44f8-b3cd-8b97ff5258b6 sample#load_avg_1m=0.14 sample#load_avg_5m=0.14 sample#load_avg_15m=0.10
 239 <45>1 2015-05-15T00:00:58.542123+00:00 heroku web.1 - - source=web.1 dyno=heroku.34921046.5449fe38-1025-44f8-b3cd-8b97ff5258b6 sample#load_avg_1m=0.10 sample#load_avg_5m=0.13 sample#load_avg_15m=0.10
 239 <45>1 2015-05-15T00:01:20.167307+00:00 heroku web.1 - - source=web.1 dyno=heroku.34921046.5449fe38-1025-44f8-b3cd-8b97ff5258b6 sample#load_avg_1m=0.07 sample#load_avg_5m=0.12 sample#load_avg_15m=0.10
 239 <45>1 2015-05-15T00:01:40.537432+00:00 heroku web.1 - - source=web.1 dyno=heroku.34921046.5449fe38-1025-44f8-b3cd-8b97ff5258b6 sample#load_avg_1m=0.05 sample#load_avg_5m=0.12 sample#load_avg_15m=0.22

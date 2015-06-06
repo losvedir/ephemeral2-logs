@@ -3,11 +3,14 @@ defmodule ParseLogs do
 
   def start(_type, _args) do
     files = [
-      # commenting out for now. how to run tests without invoking the file processing?
-      # i think start shouldn't kick off the processing, maybe.
-      # {"base64-video", ParseLogs.Base64Video},
-      # {"base64-image", ParseLogs.Base64Image},
-      # {"sent-200", ParseLogs.Sent200},
+      {"base64-image", ParseLogs.Base64Image},
+      {"base64-video", ParseLogs.Base64Video},
+      {"cpu", ParseLogs.Cpu},
+      {"load-page", ParseLogs.LoadPage},
+      {"memory", ParseLogs.Memory},
+      {"restarts", ParseLogs.Restarts},
+      # {"sent-200", ParseLogs.Sent200}, bunch of overlap with load-page. not sure it's necessary
+      {"total-subscribers", ParseLogs.TotalSubscribers},
     ]
 
     pids = Enum.map(files, fn({path, module}) ->
