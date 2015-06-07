@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+</style>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
+<script>
+
+var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    width = 29600 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var x = d3.time.scale()
+    .range([0, width]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom")
+    .ticks(50);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+var line = d3.svg.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.count); });
+
+var y2 = d3.scale.linear()
+    .range([height, 0]);
+
+var y2Axis = d3.svg.axis()
+    .scale(y2)
+    .orient("right");
+
+var line2 = d3.svg.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y2(d.load); });
+
+var ymem = d3.scale.linear()
+    .range([height, 0]);
+
+var ymemAxis = d3.svg.axis()
+    .scale(ymem)
+    .orient("left");
+
+var linemem = d3.svg.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return ymem(d.mem); });
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("log_data/total-subscribers.csv", function(error, data) {
+  data.forEach(function(d) {
+    d.date = new Date( (+d.timestamp)*1000 );
+    d.count = +d.count;
+  });
+
+  x.domain(d3.extent(data, function(d) { return d.date; }));
+  y.domain(d3.extent(data, function(d) { return d.count; }));
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Count");
+
+  svg.append("path")
+      .datum(data)
+      .attr("class", "line")
+      .attr("d", line);
+});
+
+d3.csv("log_data/cpu.csv", function(error, data) {
+  data.forEach(function(d) {
+    d.date = new Date( (+d.timestamp)*1000 );
+    d.load = +d.load_avg_1m;
+  });
+
+  x.domain(d3.extent(data, function(d) { return d.date; }));
+  y2.domain(d3.extent(data, function(d) { return d.load; }));
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .attr("transform", "translate(" + width + " ,0)")
+      .style("fill", "red")
+      .call(y2Axis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Load Avg");
+
+  svg.append("path")
+      .datum(data)
+      .attr("class", "line")
+      .style("stroke", "red")
+      .attr("d", line2);
+});
+
+d3.csv("log_data/memory.csv", function(error, data) {
+  data.forEach(function(d) {
+    d.date = new Date( (+d.timestamp)*1000 );
+    d.mem = +d.memory;
+  });
+
+  x.domain(d3.extent(data, function(d) { return d.date; }));
+  ymem.domain(d3.extent(data, function(d) { return d.mem; }));
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .attr("transform", "translate(" + width + " ,0)")
+      .style("fill", "green")
+      .call(ymemAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Memory (MB)");
+
+  svg.append("path")
+      .datum(data)
+      .attr("class", "line")
+      .style("stroke", "green")
+      .attr("d", linemem);
+});
+
+</script>
