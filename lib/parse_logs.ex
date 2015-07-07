@@ -31,7 +31,7 @@ defmodule ParseLogs do
 
     for line <- IO.stream(in_file, :line) do
       parsed_line = mod.parse_line(line)
-      if parsed_line, do: IO.puts(out_file, parsed_line)
+      if parsed_line != :skip, do: IO.puts(out_file, parsed_line)
     end
 
     File.close in_file

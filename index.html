@@ -112,7 +112,7 @@ d3.csv("log_data/total-subscribers.csv", function(error, data) {
 d3.csv("log_data/cpu.csv", function(error, data) {
   data.forEach(function(d) {
     d.date = new Date( (+d.timestamp)*1000 );
-    d.load = +d.load_avg_1m;
+    d.load = +d.load_avg_5m;
   });
 
   x.domain(d3.extent(data, function(d) { return d.date; }));
