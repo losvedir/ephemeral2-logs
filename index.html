@@ -29,7 +29,7 @@ body {
 <script>
 
 var margin = {top: 20, right: 20, bottom: 30, left: 50},
-    width = 29600 - margin.left - margin.right,
+    width = 1000 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
 var x = d3.time.scale()
@@ -38,7 +38,7 @@ var x = d3.time.scale()
 var xAxis = d3.svg.axis()
     .scale(x)
     .orient("bottom")
-    .ticks(50);
+    .ticks(20);
 
 var y = d3.scale.linear()
     .range([height, 0]);
@@ -96,17 +96,20 @@ d3.csv("log_data/total-subscribers.csv", function(error, data) {
   svg.append("g")
       .attr("class", "y axis")
       .call(yAxis)
+      .style("fill", "blue")
     .append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Count");
+      .text("Concurrent Visitors");
 
   svg.append("path")
       .datum(data)
       .attr("class", "line")
-      .attr("d", line);
+      .style("stroke", "blue")
+      .attr("d", line)
+      .attr("data-legend",function(d) { return "Concurrent Visitors"; });
 });
 
 d3.csv("log_data/cpu.csv", function(error, data) {
@@ -134,7 +137,8 @@ d3.csv("log_data/cpu.csv", function(error, data) {
       .datum(data)
       .attr("class", "line")
       .style("stroke", "red")
-      .attr("d", line2);
+      .attr("d", line2)
+      .attr("data-legend",function(d) { return "CPU"; });
 });
 
 d3.csv("log_data/memory.csv", function(error, data) {
@@ -154,7 +158,7 @@ d3.csv("log_data/memory.csv", function(error, data) {
     .append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 6)
-      .attr("dy", ".71em")
+      .attr("dy", "-1em")
       .style("text-anchor", "end")
       .text("Memory (MB)");
 
@@ -162,7 +166,14 @@ d3.csv("log_data/memory.csv", function(error, data) {
       .datum(data)
       .attr("class", "line")
       .style("stroke", "green")
-      .attr("d", linemem);
+      .attr("d", linemem)
+      .attr("data-legend",function(d) { return "Memory"; });
 });
+
+legend = svg.append("g")
+  .attr("class","legend")
+  .attr("transform","translate(50,30)")
+  .style("font-size","12px")
+  .call(d3.legend);
 
 </script>
